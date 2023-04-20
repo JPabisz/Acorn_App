@@ -1,0 +1,129 @@
+body {
+  background-color: hsl(45deg, 50%, 80%);
+  color: hsl(126deg, 50%, 12%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-variant: small-caps;
+  margin: 40px;
+}
+
+button {
+  width: 72px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+main {
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-bottom: 40px;
+}
+
+#header img {
+  width: 240px;
+  max-width: 50%;
+}
+
+#user-container {
+  float: right;
+}
+#user-container #usertext {
+  font-size: 10px;
+}
+#user-container form {
+  float: right;
+}
+
+#topnav {
+  display: flex;
+}
+#topnav a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 160px;
+  padding: 10px 0px 10px 0px;
+  margin: 20px;
+  border: 4px solid;
+  background-color: hsl(125deg, 50%, 50%);
+  color: hsl(45deg, 50%, 80%);
+  border-color: hsl(125deg, 50%, 20%);
+}
+#topnav a:hover {
+  background-color: hsl(125deg, 50%, 20%);
+  color: hsl(45deg, 50%, 50%);
+  border-color: hsl(126deg, 50%, 12%);
+}
+#topnav #active {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 160px;
+  padding: 10px 0px 10px 0px;
+  margin: 20px;
+  border: 4px solid;
+  background-color: hsl(45deg, 50%, 50%);
+  color: hsl(45deg, 51%, 20%);
+  border-color: hsl(45deg, 51%, 20%);
+}
+
+#task-list ul {
+  display: inline-block;
+  position: relative;
+}
+#task-list ul li {
+  padding: 5px;
+  font-size: 20px;
+}
+#task-list ul li.incomplete {
+  list-style-image: url("images/acorn.png");
+}
+#task-list ul li.incomplete a {
+  text-decoration: none;
+  color: hsl(45deg, 50%, 50%);
+}
+#task-list ul li.incomplete a:hover {
+  color: hsl(45deg, 51%, 20%);
+}
+#task-list ul li.complete {
+  list-style-image: url("images/checkmark.png");
+}
+#task-list ul li.complete a {
+  text-decoration: none;
+  color: hsl(125deg, 50%, 50%);
+}
+#task-list ul li.complete a:hover {
+  color: hsl(125deg, 50%, 20%);
+}
+
+#details li {
+  position: relative;
+  left: -20px;
+  list-style-type: none;
+}
+
+#choice-buttons {
+  display: flex;
+}
+
+#newTaskMaker input, #newTaskMaker textarea {
+  margin-bottom: 8px;
+  color: hsl(126deg, 50%, 12%);
+}
+#newTaskMaker textarea {
+  width: 420px;
+  height: 140px;
+  resize: none;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  padding: 4px;
+  color: hsl(45deg, 50%, 80%);
+  background-color: hsl(125deg, 50%, 50%);
+  border: 4px solid hsl(125deg, 50%, 20%);
+  width: 50%;
+  text-align: center;
+}
+
+/*# sourceMappingURL=style.css.map */

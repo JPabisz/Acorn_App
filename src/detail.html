@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Task Details</title>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <header>
+            <div id="header">
+                <img src="images/logoImage.png" alt="Team Acorn">
+            </div>
+            <div id="user-container">
+              <p id="usertext">You are not currently logged in.</p>
+              <form action="placefiller.php">
+                  <button type="submit">Login</button>
+                  <button type="submit">SignUp</button>
+              </form>
+            </div>
+            <div id="topnav">
+                <a href="index.html">Home</a>
+                <div id="active">My To Do List</div>
+                <a href="createNew.html">Add Task</a>
+            </div>
+        </header>
+        <main>
+            <div class="container" id="details">
+                <h2>Task Details</h2>
+                <ul id="task-details">
+                    <li>
+                        <span>
+                            <strong>Task:</strong>
+                            Example
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <strong>Category:</strong>
+                            Example
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <strong>Due Date:</strong>
+                            01/01/2023
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <strong>Status:</strong>
+                            Pending
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <strong>Location:</strong>
+                            123 Road 
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <strong>Description:</strong>
+                            Example description
+                        </span>
+                    </li>
+                </ul>
+                <div class="button-container2">
+                    <div id="choice-buttons">
+                        <button class="update-button" onclick="window.location.href='list.html'">Update</button>
+                        <button class="delete-button" onclick="window.location.href='list.html'">Delete</button>
+                        <button class="back-button" onclick="window.location.href='list.html'">Back</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+          Copyright &copy; Pike, Pabisz, Ghamdi 2023. All rights reserved.
+        </footer>
+    </body>
+</html>

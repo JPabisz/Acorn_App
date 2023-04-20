@@ -1,0 +1,151 @@
+$acorn-dark: hsl(45, 51%, 12%);
+$acorn-heavy: hsl(45, 51%, 20%);
+$acorn-medium: hsl(45, 50%, 50%);
+$acorn-light: hsl(45, 50%, 80%);
+
+$pine-dark: hsl(126, 50%, 12%);
+$pine-heavy: hsl(125, 50%, 20%);
+$pine-medium: hsl(125, 50%, 50%);
+$pine-light: hsl(125, 50%, 80%);
+
+body {
+    background-color: $acorn-light;
+    color: $pine-dark;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-variant: small-caps;
+    margin: 40px;
+}
+
+button {
+    width: 72px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+main {
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 40px;
+}
+
+#header {
+    img {
+        width: 240px;
+        max-width: 50%;
+    }
+}
+
+#user-container {
+    #usertext {
+        font-size: 10px;
+    }
+
+    form {
+        float: right;
+    }
+    float: right;
+}
+
+#topnav {
+    @mixin nav-button {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        width: 160px;
+        padding: 10px 0px 10px 0px;
+        margin: 20px;
+        border: 4px solid;
+    }
+    display: flex;
+
+    a {
+        @include nav-button;
+        background-color: $pine-medium;
+        color: $acorn-light;
+        border-color: $pine-heavy;
+
+        &:hover {
+            background-color: $pine-heavy;
+            color: $acorn-medium;
+            border-color: $pine-dark;
+        }
+    }
+    #active {
+        @include nav-button;
+        background-color: $acorn-medium;
+        color: $acorn-heavy;
+        border-color: $acorn-heavy;
+    }
+}
+
+#task-list {
+
+    ul {
+        display: inline-block;
+        position: relative;
+
+        li {
+            padding: 5px;
+            font-size: 20px;
+
+            &.incomplete {
+                list-style-image: url("images/acorn.png");
+
+                a {
+                    text-decoration: none;
+                    color: $acorn-medium;
+
+                    &:hover {
+                        color: $acorn-heavy;
+                    }
+                }
+            }
+            &.complete {
+                list-style-image: url("images/checkmark.png");
+                
+                a {
+                    text-decoration: none;
+                    color: $pine-medium;
+
+                    &:hover {
+                        color: $pine-heavy;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#details li {
+    position: relative;
+    left: -20px;
+    list-style-type: none;
+}
+
+#choice-buttons {
+    display: flex;
+}
+
+#newTaskMaker {
+    input {
+        margin-bottom: 8px;
+        color: $pine-dark;
+    }
+    textarea {
+        @extend input;
+        width: 420px;
+        height: 140px;
+        resize: none;
+    }
+}
+
+footer {
+    position: sticky;
+    bottom: 0;
+    padding: 4px;
+    color: $acorn-light;
+    background-color: $pine-medium;
+    border: 4px solid $pine-heavy;
+    width: 50%;
+    text-align: center;
+}

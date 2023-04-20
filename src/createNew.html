@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Milestone 1</title>
+        <link rel="stylesheet"    href="style.css">
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <header>
+            <div id="header">
+                <img src="images/logoImage.png" alt="Team Acorn">
+            </div>
+            <div id="user-container">
+              <p id="usertext">You are not currently logged in.</p>
+              <form action="placefiller.php">
+                  <button type="submit">Login</button>
+                  <button type="submit">SignUp</button>
+              </form>
+            </div>
+            <div id="topnav">
+                <a href="index.html">Home</a>
+                <a href="list.html">My To Do List</a>
+                <div id="active">Add Task</div>
+            </div>
+        </header>
+        <main id="newTaskMaker">
+            <h1>Add a New Task</h1>
+            <form action="list.html" method="POST">
+                <input type="radio" name="taskType" value="day" id="daily">
+                <label for="daily">Daily Task</label>
+                <input type="radio" name="taskType" value="week" id="weekly">
+                <label for="weekly">Weekly Task</label><br>
+                <input type="checkbox" id="complete">
+                <label for="complete">Task Complete?</label><br>
+                <label for="taskName">Task Name:</label><br>
+                <input type="text" id="taskName"><br>
+                <label for="due">Due Date:</label><br>
+                <input type="date" id="due"><br>
+                <label for="location">Task Location</label><br>
+                <input type="text" id="complete"><br>
+                <label for="desc">Task Description</label><br>
+                <div class="container">
+                    <textarea id="desc" rows="7" columns="84"></textarea><br>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        </main>
+        <footer>
+            Copyright &copy; Pike, Pabisz, Ghamdi 2023. All rights reserved.
+          </footer>
+    </body>
+</html>
