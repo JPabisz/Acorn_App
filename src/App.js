@@ -6,9 +6,13 @@ import Home from './components/Home';
 import MyToDoList from './components/MyToDoList';
 import Details from './components/Details';
 import AddTask from './components/AddTask';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './config';
 import './style.css';
 
 function App() {
+  const [user] = useAuthState(auth);
+
   return (
     <Router>
       <div className="App">

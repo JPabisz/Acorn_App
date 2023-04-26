@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SignIn from './SignIn';
 import SignOut from './SignOut';
-import { auth } from '../config';
 import SignUp from './SignUp';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../config';
 import headerImage from '../images/logoImage.png';
 import '../style.css';
 
 const Header = () => {
-  const [user, setUser] = useState(null);
+  const [user] = useAuthState(auth);
+  const [signInModalOpen, setSignInModalOpen] = useState(false);
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
+  const openSignInModal = () => setSignInModalOpen(true);
+  const closeSignInModal = () => setSignInModalOpen(false);
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  const openSignUpModal = () => setSignUpModalOpen(true);
+  const closeSignUpModal = () => setSignUpModalOpen(false);
 
   return (
     <header>
@@ -26,10 +25,20 @@ const Header = () => {
         <img src={headerImage} alt="Team Acorn" />
       </div>
       <div id="user-container">
-        <p id="usertext">
-          {user ? `Welcome, ${user.email}` : 'You are not currently logged in.'}
-        </p>
-        {user ? ( <SignOut />) : ( <> <SignIn /> <SignUp /> </> )}
+        {user ? (
+          <>
+            <p id="usertext">Welcome, {user.email}!</p>
+            <SignOut />
+          </>
+        ) : (
+          <>
+            <p id="usertext">You are not currently logged in.</p>
+            <button onClick={openSignInModal}>Login</button>
+            <button onClick={openSignUpModal}>SignUp</button>
+            <SignIn isOpen={signInModalOpen} closeModal={closeSignInModal} />
+            <SignUp isOpen={signUpModalOpen} closeModal={closeSignUpModal} />
+          </>
+        )}
       </div>
       <div id="topnav">
         <Link to="/">Home</Link>
@@ -39,6 +48,7 @@ const Header = () => {
     </header>
   );
 };
+
 
 export default Header;
 

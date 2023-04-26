@@ -1,9 +1,16 @@
 import React from 'react';
 import '../style.css';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../config';
 
 const AddTask = () => {
+  
+  const [user] = useAuthState(auth);
+  
   return (
     <main id="newTaskMaker">
+      {user ? (
+        <>
       <h1>Add a New Task</h1>
       <form action="list.html" method="POST">
         <input type="radio" name="taskType" value="day" id="daily" />
@@ -24,6 +31,10 @@ const AddTask = () => {
         </div>
         <input type="submit" value="Submit" />
       </form>
+      </>
+      ) : (
+        <h2>Please sign in to create new tasks.</h2>
+      )}
     </main>
   );
 };

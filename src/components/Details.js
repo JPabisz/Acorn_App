@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getTask, updateTask, deleteTask } from '../DB';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../config';
 
 const Details = () => {
+  const [user] = useAuthState(auth);
   const { id } = useParams();
   const [task, setTask] = useState(null);
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const Details = () => {
     setTask(fetchedTask);
     console.log(task);
   }, [id]);
+  
 
   const handleUpdate = () => {
     // Call the updateTask function with the updated task data
@@ -35,11 +38,13 @@ const Details = () => {
 
   if (!task) {
     return <div>Loading...</div>;
-  }
+  };
 
   return (
     <main>
-      <div className="container" id="details">
+      {user ? (
+        <>
+          <div className="container" id="details">
         <h2>Task Details</h2>
         <ul id="task-details">
           <li>
@@ -76,7 +81,12 @@ const Details = () => {
           </div>
         </div>
       </div>
+        </>
+      ) : (
+        <h2>Please sign in to view task details.</h2>
+      )}
     </main>
   );
 };
+
 export default Details;
