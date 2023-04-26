@@ -11,7 +11,6 @@ import { auth } from './config';
 import './style.css';
 
 function App() {
-  const [user] = useAuthState(auth);
 
   return (
     <Router>

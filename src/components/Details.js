@@ -13,7 +13,6 @@ const Details = () => {
   useEffect(() => {
     const fetchedTask = getTask(id);
     setTask(fetchedTask);
-    console.log(task);
   }, [id]);
   
 
