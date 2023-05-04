@@ -3,17 +3,52 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../config';
 import { getTasks } from '../DB';
 import '../style.css';
+import { Link } from 'react-router-dom';
 
 const MyToDoList = () => {
   const [user] = useAuthState(auth);
   const [tasks, setTasks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const tasksPerPage = 5;
+
+  const fetchTasks = async () => {
+    if (user) {
+      const fetchedTasks = await getTasks(user.uid);
+      setTasks(fetchedTasks);
+    }
+  };
 
   useEffect(() => {
-    setTasks(getTasks());
+    fetchTasks();
+  }, [user]);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      fetchTasks();
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
 
   const dailyTasks = tasks.filter(task => task.taskListTopic === 'Daily Tasks');
   const weeklyTasks = tasks.filter(task => task.taskListTopic === 'Weekly Tasks');
+
+  const dailyTasksPaginated = dailyTasks.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
+  const weeklyTasksPaginated = weeklyTasks.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage);
+
+  const totalPages = Math.ceil(Math.max(dailyTasks.length, weeklyTasks.length) / tasksPerPage);
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => (prevPage < totalPages ? prevPage + 1 : prevPage));
+  };
 
   return (
     <main>
@@ -23,21 +58,32 @@ const MyToDoList = () => {
           <div className="container" id="task-list">
             <h2>Daily Tasks</h2>
             <ul>
-              {dailyTasks.map(task => (
+              {dailyTasksPaginated.map(task => (
                 <li key={task.taskID} className={task.status === 'complete' ? 'complete' : 'incomplete'}>
-                  <a href={`/details/${task.taskID}`}>{task.taskName}</a>
+                  <Link to={`/details/${task.taskID}`}>{task.taskName}</Link>
                 </li>
               ))}
             </ul>
 
             <h2>Weekly Tasks</h2>
             <ul>
-              {weeklyTasks.map(task => (
+              {weeklyTasksPaginated.map(task => (
                 <li key={task.taskID} className={task.status === 'complete' ? 'complete' : 'incomplete'}>
-                  <a href={`/details/${task.taskID}`}>{task.taskName}</a>
+                  <Link to={`/details/${task.taskID}`}>{task.taskName}</Link>
                 </li>
               ))}
             </ul>
+            <div className="pagination">
+              <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                Previous
+              </button>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                Next
+              </button>
+            </div>
           </div>
         </>
       ) : (

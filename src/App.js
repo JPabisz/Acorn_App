@@ -18,7 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/MyToDoList" element={<MyToDoList />} />
-            <Route path="/details/:id" element={<Details />} />
+            <Route path="/details/:taskID" element={<Details />} />
             <Route path="/task/:id" element={<AddTask />} />
           </Routes>
         </main>

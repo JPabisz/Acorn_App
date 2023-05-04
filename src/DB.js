@@ -1,32 +1,38 @@
-import Task from './Task';
+import axios from 'axios';
 
-const tasks = [
-  new Task('1', 'Example Task 1', 'Daily Tasks', '1', '2023-01-01', 'complete', 'We have a lot of hw.'),
-  new Task('2', 'Example Task 1', 'Weekly Tasks', '1', '2023-01-01', 'incomplete', 'We have a lot of projects.'),
-  // Add more tasks here
-];
+const API_BASE_URL = 'http://localhost:5000/api/tasks';
 
-export const getTasks = () => {
-  return tasks;
+const getTasks = async (userId) => {
+  const { data } = await axios.get(`${API_BASE_URL}/user`, {
+    params: {
+      userId,
+    },
+  });
+  return data;
 };
 
-export const getTask = (taskID) => {
-  return tasks.find((task) => task.taskID === taskID);
+const getTask = async (taskID, userId) => {
+  const { data } = await axios.get(`${API_BASE_URL}/${userId}/${taskID}`);
+  return data;
 };
 
-const updateTask = (updatedTask) => {
-  const taskIndex = tasks.findIndex(task => task.taskID === updatedTask.taskID);
-  if (taskIndex !== -1) {
-    tasks[taskIndex] = updatedTask;
+const updateTask = async (updatedTask) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/${updatedTask.taskID}`, updatedTask);
+    return response.data;
+  } catch (error) {
+    throw new Error('Error updating task');
   }
 };
 
-const deleteTask = (taskID) => {
-  const taskIndex = tasks.findIndex(task => task.taskID === taskID);
-  if (taskIndex !== -1) {
-    tasks.splice(taskIndex, 1);
-  }
+const deleteTask = async (taskID, userID) => {
+  await axios.delete(`${API_BASE_URL}/${taskID}`);
 };
 
-// Modify this export statement
-export { updateTask, deleteTask };
+const addTask = async (newTask) => {
+  console.log('New task to add:', newTask);
+  const { data } = await axios.post(API_BASE_URL, newTask);
+  return data;
+};
+
+export { getTasks, getTask, updateTask, deleteTask, addTask };
