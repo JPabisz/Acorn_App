@@ -94,6 +94,17 @@ const Details = () => {
             </form>
             <form>
               <label>
+                Topic:
+                <input
+                  type="text"
+                  name="categoryID"
+                  value={task.categoryID}
+                  onChange={handleChange}
+                />
+              </label>
+            </form>
+            <form>
+              <label>
                 Due Date:
                 <input
                   type="text"

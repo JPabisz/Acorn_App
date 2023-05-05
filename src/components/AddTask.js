@@ -7,15 +7,17 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../config';
 
 const AddTask = () => {
-  const [taskType, setTaskType] = useState('');
+  const [taskType, setTaskType] = useState('day');
   const [isComplete, setIsComplete] = useState(false);
   const [taskName, setTaskName] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [location, setLocation] = useState('');
+  const [dueDate, setDueDate] = useState(() => {
+    const currentDate = new Date();
+    return currentDate.toISOString().slice(0, 10);
+  });
+  const [location, setLocation] = useState('Set Location');
   const [description, setDescription] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
-  const [categoryID, setCategoryID] = useState('');
-  const [taskID, setTaskID] = useState('');
+  const [taskDescription, setTaskDescription] = useState('No description provided');
+  const [categoryID, setCategoryID] = useState(' ');
   const navigate = useNavigate();
 
   const [user] = useAuthState(auth);
@@ -53,20 +55,20 @@ const AddTask = () => {
         <>
           <h1>Add a New Task</h1>
           <form onSubmit={handleSubmit}>
-            <input type="radio" name="taskType" value="day" id="daily" onChange={() => setTaskType('day')} />
+            <input type="radio" name="taskType" value="day" id="daily" checked={taskType === 'day'} onChange={() => setTaskType('day')} />
             <label htmlFor="daily">Daily Task</label>
-            <input type="radio" name="taskType" value="week" id="weekly" onChange={() => setTaskType('week')} />
+            <input type="radio" name="taskType" value="week" id="weekly" checked={taskType === 'week'} onChange={() => setTaskType('week')} />
             <label htmlFor="weekly">Weekly Task</label><br />
             <input type="checkbox" id="complete" onChange={() => setIsComplete(!isComplete)} />
             <label htmlFor="complete">Task Complete?</label><br />
             <label htmlFor="taskName">Task Name:</label><br />
-            <input type="text" id="taskName" onChange={(e) => setTaskName(e.target.value)} /><br />
-            <label htmlFor="categoryID">Category ID:</label><br />
-            <input type="text" id="categoryID" onChange={(e) => setCategoryID(e.target.value)} /><br />
+            <input type="text" id="taskName" required onChange={(e) => setTaskName(e.target.value)} /><br />
+            <label htmlFor="categoryID">Topic:</label><br />
+            <input type="text" id="categoryID" value={categoryID} onChange={(e) => setCategoryID(e.target.value)} /><br />
             <label htmlFor="due">Due Date:</label><br />
-            <input type="date" id="due" onChange={(e) => setDueDate(e.target.value)} /><br />
+            <input type="date" id="due" value={dueDate} onChange={(e) => setDueDate(e.target.value)} /><br />
             <label htmlFor="location">Task Location</label><br />
-            <input type="text" id="location" onChange={(e) => setLocation(e.target.value)} /><br />
+            <input type="text" id="location" value={location} onChange={(e) => setLocation(e.target.value)} /><br />
             <label htmlFor="desc">Task Description</label><br />
             <div className="container">
               <textarea id="taskDescription" rows="7" columns="84" onChange={(e) => setTaskDescription(e.target.value)}></textarea><br />
